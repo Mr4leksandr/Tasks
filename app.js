@@ -35,6 +35,12 @@ function addTask(event){
     link.innerHTML = 'X';
     li.appendChild(link);
     taskList.appendChild(li);
+
+    taskInput.value = '';
+
+    //store in LocalStorage
+    storeInLocalStorage(taskInput.value);
+
     event.preventDefault();
 }
 
@@ -65,4 +71,18 @@ function filterTasks(event){
             task.style.display = 'none';
         }
     });
+}
+
+function storeInLocalStorage(task){
+    //declare an array to read from the local storage
+    let tasks;
+    if(localStorage.getItem("tasks") === null){
+        tasks =[];
+    } else{
+        task = JSON.parse(localStorage.getItem('tasks'));
+    }
+
+    //add a tasks to the tasks array
+    tasks.push(task);
+    localStorage.setItem('tasks', JSON.stringify(tasks))
 }
